@@ -1,6 +1,6 @@
 # Complete Development Guidelines
 
-A comprehensive guide to coding standards, best practices, and architectural guidelines for maintainable web development.
+An amalgamation of coding standards, best practices, and architectural guidelines for maintainable web development with a pinch of personal preference.
 
 ## 📑 Table of Contents
 
@@ -22,7 +22,7 @@ These guidelines ensure:
 - **Consistency** - Standardized practices across teams and projects
 - **Readability** - Code that clearly communicates intent and functionality
 - **Maintainability** - Easier debugging, refactoring, and feature addition
-- **Collaboration** - Common conventions reduce onboarding friction
+- **Collaboration** - Common conventions reduce onboarding issues
 - **Scalability** - Architectural patterns that support growth
 
 ## 📋 Legend
@@ -218,12 +218,18 @@ private _loadUsers(): void { /* ... */ }
 
 ### Accessibility **[MANDATORY]**
 
+Accessibility isn't just compliance; it's about creating inclusive experiences that work for everyone.  
+Poor accessibility excludes users and creates legal liability.
+
+#### Semantic HTML
 ```html
 <!-- ✅ SEMANTIC HTML -->
+<!-- ✅ GOOD - Browser provides built-in keyboard support, focus management -->
 <button (click)="submit()" [disabled]="!isValid">
   Submit Form
 </button>
 
+<!-- ✅ Always associate labels with form controls for screen reader context. -->
 <label for="email">Email Address</label>
 <input id="email" type="email" aria-required="true">
 
@@ -235,12 +241,122 @@ private _loadUsers(): void { /* ... */ }
 <!-- ✅ PROPER ALT TEXT -->
 <img src="user-avatar.jpg" alt="User profile picture">
 <img src="decorative-border.png" alt="" aria-hidden="true">
+
+<!-- ❌ BAD - Requires manual keyboard handling, no semantic meaning -->
+<div (click)="submit()" class="fake-button">
+  Submit Form
+</div>
 ```
+* Why: Semantic elements provide automatic keyboard navigation, screen reader context, and focus management.  Users with disabilities rely on these built-in behaviors.
+
+#### Heading Hierarchy
+Maintain logical heading order for screen reader navigation. ```<h1> -> <h2>``` etc...
+
+* Why: Screen readers use headings as navigation landmarks.  
+Users jump between headings to quickly find content.  
+An illogical hierarchy breaks this navigation pattern.
+
+#### Form Labels
+* Why: Screen readers announce the label when the input receives focus. Without proper association, users don't know what information to enter.
+
+#### ARIA Attributes
+Use ARIA to provide additional context when HTML semantics aren't sufficient.
+
+```
+<!-- ✅ ARIA-LIVE for dynamic content -->
+<span *ngIf="hasError" aria-live="assertive">
+  {{ errorMessage }}
+</span>
+
+<span *ngIf="saveStatus" aria-live="polite">
+  Document saved successfully
+</span>
+
+<!-- ✅ ARIA-LABEL for context without visible text -->
+<button aria-label="Close modal" (click)="closeModal()">
+  <i class="icon-close"></i>
+</button>
+
+<!-- ✅ ARIA-EXPANDED for collapsible content -->
+<button 
+  [attr.aria-expanded]="isExpanded"
+  (click)="toggle()"
+  aria-controls="dropdown-menu">
+  Options
+</button>
+<div id="dropdown-menu" [hidden]="!isExpanded">
+  <!-- menu items -->
+</div>
+```
+
+#### Aria Live Regions
+
+* aria-live="assertive" - Interrupts screen reader immediately (errors, urgent alerts)
+* aria-live="polite" - Waits for pause in speech (status updates, confirmations)
+* aria-atomic="true" - Reads entire region when updated, not just changes
+
+#### Keyboard Navigation 
+Ensure all interactive elements are keyboard accessible.
+
+```
+<!-- ✅ GOOD - Custom interactive element with keyboard support -->
+<span
+  role="button"
+  tabindex="0"
+  [inlineSVG]="'./assets/icons/clear.svg'"
+  (click)="clear()"
+  (keydown.enter)="clear()"
+  (keydown.space)="clear(); $event.preventDefault()"
+  aria-label="Clear search">
+</span>
+
+<!-- ❌ BAD - Click-only interaction -->
+<span (click)="clear()">
+  <i class="icon-clear"></i>
+</span>
+```
+
+* Why: Many users navigate entirely by keyboard (motor disabilities, power users, mobile screen readers).
+  Every interactive element must be reachable and operable via keyboard.
+
+#### Image Alt Text
+Provide context-appropriate descriptions for images.
+```
+<!-- ✅ GOOD - Descriptive alt for meaningful images -->
+<img src="sales-chart-q4.png" alt="Q4 sales increased 23% from previous quarter">
+
+<!-- ✅ GOOD - Empty alt for decorative images -->
+<img src="decorative-border.png" alt="" aria-hidden="true">
+
+<!-- ✅ GOOD - Context-aware descriptions -->
+<img src="user-avatar.jpg" alt="John Smith's profile picture">
+
+<!-- ❌ BAD - Redundant or useless alt -->
+<img src="chart.png" alt="chart"> <!-- Doesn't describe the data -->
+<img src="decoration.png" alt="image"> <!-- Screen reader already says "image" -->
+```
+
+Alt Text Rules:
+
+* Informative images: Describe the meaning/data, not appearance
+* Decorative images: Use alt="" and aria-hidden="true"
+* Functional images (icons in buttons): Describe the action, not the icon
+* Complex images: Consider longer descriptions or data tables
 
 **Testing Accessibility**:
 1. Use Lighthouse audits (Chrome DevTools)
 2. Test keyboard navigation (Tab, Enter, Space)
 3. Verify screen reader compatibility (NVDA, JAWS)
+
+Testing Checklist:
+- [ ] All interactive elements focusable via keyboard
+- [ ] Focus indicators visible and clear
+- [ ] Heading structure logical (h1 → h2 → h3)
+- [ ] Form labels properly associated
+- [ ] Images have appropriate alt text
+- [ ] Error messages announced by screen readers
+- [ ] Color information supplemented with icons/text
+- [ ] Minimum contrast ratios met
 
 ## 🎨 SCSS/CSS Conventions
 
