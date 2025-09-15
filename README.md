@@ -414,7 +414,7 @@ return BadRequest('Invalid input provided');
 ```
 
 **Benefits**:
-- Consistent error messages across application
+- Consistent error messages across the application
 - Easier localization and translation
 - Better error tracking and monitoring
 - Reduced typos in error handling
@@ -522,6 +522,4 @@ hotfix/PROJ-789-security-patch
 
 ---
 
-*This guide is a living document. Last updated: [Date] | Version: 1.0*
-
-*For questions or suggestions, create an issue or reach out to the development team.*
+*For questions or suggestions, create an issue or reach out to me.*
