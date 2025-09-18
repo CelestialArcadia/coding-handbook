@@ -2,6 +2,11 @@
 
 An amalgamation of coding standards, best practices, and architectural guidelines for maintainable web development with a pinch of personal preference.
 
+<b> How to navigate this repo? </b> It is structured following two approaches:
+
+* This README file is a general overall approach that has a certain amount of depth.
+* Other files are divided by categories with more in-depth approaches- they may or may not overlap with some of the general README file points.
+
 ## 📑 Table of Contents
 
 - [Purpose & Benefits](#-purpose--benefits)
