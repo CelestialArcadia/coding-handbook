@@ -39,7 +39,7 @@ These guidelines ensure:
 ## 🚀 Quick Reference
 
 ### Essential Rules
-1. **[MANDATORY]** Use `const`/`let` instead of `var`
+1. **[MANDATORY]** U+200B Use `const`/`let` instead of `var`
 2. **[MANDATORY]** Arrow functions over function expressions
 3. **[MANDATORY]** Named error constants instead of magic strings
 4. **[RECOMMENDED]** Observable variables end with `$`
@@ -173,10 +173,10 @@ export class userProfile {
 ### Template Safety **[MANDATORY]**
 
 ```html
-<!-- ✅ GOOD - Safe navigation for optional properties -->
+<!-- ✅ GOOD - Safe navigation for optional properties !! -->
 <div>{{ user?.profile?.displayName || 'Guest' }}</div>
 
-<!-- ❌ BAD - Potential runtime errors -->
+<!-- ❌ BAD - Potential runtime errors !! -->
 <div>{{ user.profile.displayName }}</div>
 ```
 
@@ -228,26 +228,26 @@ Poor accessibility excludes users and creates legal liability.
 
 #### Semantic HTML
 ```html
-<!-- ✅ SEMANTIC HTML -->
-<!-- ✅ GOOD - Browser provides built-in keyboard support, focus management -->
+<!-- ✅ SEMANTIC HTML !! -->
+<!-- ✅ GOOD - Browser provides built-in keyboard support, focus management !! -->
 <button (click)="submit()" [disabled]="!isValid">
   Submit Form
 </button>
 
-<!-- ✅ Always associate labels with form controls for screen reader context. -->
+<!-- ✅ Always associate labels with form controls for screen reader context. !! -->
 <label for="email">Email Address</label>
 <input id="email" type="email" aria-required="true">
 
-<!-- ✅ ARIA ATTRIBUTES -->
+<!-- ✅ ARIA ATTRIBUTES !! -->
 <span *ngIf="hasError" aria-live="assertive">
   {{ errorMessage }}
 </span>
 
-<!-- ✅ PROPER ALT TEXT -->
+<!-- ✅ PROPER ALT TEXT !! -->
 <img src="user-avatar.jpg" alt="User profile picture">
 <img src="decorative-border.png" alt="" aria-hidden="true">
 
-<!-- ❌ BAD - Requires manual keyboard handling, no semantic meaning -->
+<!-- ❌ BAD - Requires manual keyboard handling, no semantic meaning !! -->
 <div (click)="submit()" class="fake-button">
   Submit Form
 </div>
@@ -268,7 +268,7 @@ An illogical hierarchy breaks this navigation pattern.
 Use ARIA to provide additional context when HTML semantics aren't sufficient.
 
 ```
-<!-- ✅ ARIA-LIVE for dynamic content -->
+<!-- ✅ ARIA-LIVE for dynamic content !! -->
 <span *ngIf="hasError" aria-live="assertive">
   {{ errorMessage }}
 </span>
@@ -277,12 +277,12 @@ Use ARIA to provide additional context when HTML semantics aren't sufficient.
   Document saved successfully
 </span>
 
-<!-- ✅ ARIA-LABEL for context without visible text -->
+<!-- ✅ ARIA-LABEL for context without visible text !! -->
 <button aria-label="Close modal" (click)="closeModal()">
   <i class="icon-close"></i>
 </button>
 
-<!-- ✅ ARIA-EXPANDED for collapsible content -->
+<!-- ✅ ARIA-EXPANDED for collapsible content !! -->
 <button 
   [attr.aria-expanded]="isExpanded"
   (click)="toggle()"
@@ -290,7 +290,7 @@ Use ARIA to provide additional context when HTML semantics aren't sufficient.
   Options
 </button>
 <div id="dropdown-menu" [hidden]="!isExpanded">
-  <!-- menu items -->
+  <!-- menu items !! -->
 </div>
 ```
 
@@ -304,7 +304,7 @@ Use ARIA to provide additional context when HTML semantics aren't sufficient.
 Ensure all interactive elements are keyboard accessible.
 
 ```
-<!-- ✅ GOOD - Custom interactive element with keyboard support -->
+<!-- ✅ GOOD - Custom interactive element with keyboard support !! -->
 <span
   role="button"
   tabindex="0"
@@ -315,7 +315,7 @@ Ensure all interactive elements are keyboard accessible.
   aria-label="Clear search">
 </span>
 
-<!-- ❌ BAD - Click-only interaction -->
+<!-- ❌ BAD - Click-only interaction !! -->
 <span (click)="clear()">
   <i class="icon-clear"></i>
 </span>
@@ -327,18 +327,18 @@ Ensure all interactive elements are keyboard accessible.
 #### Image Alt Text
 Provide context-appropriate descriptions for images.
 ```
-<!-- ✅ GOOD - Descriptive alt for meaningful images -->
+<!-- ✅ GOOD - Descriptive alt for meaningful images !! -->
 <img src="sales-chart-q4.png" alt="Q4 sales increased 23% from previous quarter">
 
-<!-- ✅ GOOD - Empty alt for decorative images -->
+<!-- ✅ GOOD - Empty alt for decorative images !! -->
 <img src="decorative-border.png" alt="" aria-hidden="true">
 
-<!-- ✅ GOOD - Context-aware descriptions -->
+<!-- ✅ GOOD - Context-aware descriptions !! -->
 <img src="user-avatar.jpg" alt="John Smith's profile picture">
 
-<!-- ❌ BAD - Redundant or useless alt -->
-<img src="chart.png" alt="chart"> <!-- Doesn't describe the data -->
-<img src="decoration.png" alt="image"> <!-- Screen reader already says "image" -->
+<!-- ❌ BAD - Redundant or useless alt !! -->
+<img src="chart.png" alt="chart"> <!-- Doesn't describe the data !! -->
+<img src="decoration.png" alt="image"> <!-- Screen reader already says "image" !! -->
 ```
 
 Alt Text Rules:
@@ -527,4 +527,4 @@ hotfix/PROJ-789-security-patch
 
 ---
 
-*For questions or suggestions, create an issue or reach out to me.*
+*For questions or suggestions, create an issue or reach out to me. And let that hill connect us*
