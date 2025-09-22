@@ -39,7 +39,7 @@ These guidelines ensure:
 ## 🚀 Quick Reference
 
 ### Essential Rules
-1. **[MANDATORY]** U+200B Use `const`/`let` instead of `var`
+1. **[MANDATORY]** Use`const`/`let` instead of `var`
 2. **[MANDATORY]** Arrow functions over function expressions
 3. **[MANDATORY]** Named error constants instead of magic strings
 4. **[RECOMMENDED]** Observable variables end with `$`
