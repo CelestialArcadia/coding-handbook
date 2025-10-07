@@ -7,7 +7,7 @@ An amalgamation of coding standards, best practices, and architectural guideline
 * This README file is a general overall approach that has a certain amount of depth.
 * Other files are divided by categories with more in-depth approaches- they may or may not overlap with some of the general README file points.
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Purpose & Benefits](#-purpose--benefits)
 - [Legend](#-legend)
@@ -21,7 +21,7 @@ An amalgamation of coding standards, best practices, and architectural guideline
 - [Git & Workflow](#-git--workflow)
 - [Implementation Guide](#-implementation-guide)
 
-## 🎯 Purpose & Benefits
+## Purpose & Benefits
 
 These guidelines ensure:
 - **Consistency** - Standardized practices across teams and projects
@@ -30,13 +30,13 @@ These guidelines ensure:
 - **Collaboration** - Common conventions reduce onboarding issues
 - **Scalability** - Architectural patterns that support growth
 
-## 📋 Legend
+## Legend
 
 - **[MANDATORY]** - Non-negotiable standards
 - **[RECOMMENDED]** - Best practices with clear benefits
 - **[TEAM_PREFERENCE]** - Consistency improvements that may vary
 
-## 🚀 Quick Reference
+## Quick Reference
 
 ### Essential Rules
 1. **[MANDATORY]** Use`const`/`let` instead of `var`
@@ -48,24 +48,24 @@ These guidelines ensure:
 
 ### Common Anti-Patterns
 ```typescript
-// ❌ AVOID
+// AVOID
 var data = getData();
 const process = function(input) { /* ... */ };
 throw new Error('Something went wrong');
 
-// ✅ PREFER
+// PREFER
 const data = getData();
 const process = (input: InputType): OutputType => { /* ... */ };
 throw new Error(PROCESSING_ERROR);
 ```
 
-## 📦 Dependency Management
+## Dependency Management
 
 ### Installing Dependencies **[MANDATORY]**
 ```bash
 # Use npm ci for deterministic builds
-npm ci  # ✅ Preferred
-npm i   # ❌ Avoid in CI/production
+npm ci  # Preferred
+npm i   # Avoid in CI/production
 ```
 
 ### Package Management **[RECOMMENDED]**
@@ -76,16 +76,16 @@ npm i   # ❌ Avoid in CI/production
 ### Why This Matters
 Consistent dependency versions eliminate "works on my machine" issues and security vulnerabilities from outdated packages.
 
-## 🔷 TypeScript Guidelines
+## TypeScript Guidelines
 
 ### Variable Declarations **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD
+//  GOOD
 const immutableValue = 'constant';
 let mutableValue = 0;
 
-// ❌ BAD
+//  BAD
 var outdatedDeclaration = 'avoid';
 ```
 
@@ -94,12 +94,12 @@ var outdatedDeclaration = 'avoid';
 ### Function Declarations **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD
+//  GOOD
 const add = (a: number, b: number): number => {
   return a + b;
 };
 
-// ❌ BAD
+//  BAD
 const add = function(a: number, b: number) {
   return a + b;
 };
@@ -110,17 +110,17 @@ const add = function(a: number, b: number) {
 ### Type Definitions **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Use interfaces for object shapes
+//  GOOD - Use interfaces for object shapes
 interface User {
   id: number;
   name: string;
   email: string;
 }
 
-// ✅ GOOD - Type aliases for complex types
+//  GOOD - Type aliases for complex types
 type EventHandler = (event: Event) => void;
 
-// ✅ GOOD - Generics for reusability
+//  GOOD - Generics for reusability
 interface Repository<T> {
   findById(id: number): T | undefined;
 }
@@ -139,12 +139,12 @@ class ChildComponent extends BaseComponent {
 
 **Purpose**: Makes inheritance relationships explicit and catches signature mismatches.
 
-## 🅰️ Angular Standards
+## Angular Standards
 
 ### Component Architecture **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD
+//  GOOD
 export class UserProfileComponent implements OnInit {
   @Input() userId: number;
   @Output() userUpdated = new EventEmitter<User>();
@@ -154,7 +154,7 @@ export class UserProfileComponent implements OnInit {
   private _loadUserData(): void { /* ... */ }
 }
 
-// ❌ BAD
+//  BAD
 export class userProfile {
   @Input('id') userId: number;
   @Output() updated = new EventEmitter();
@@ -165,18 +165,18 @@ export class userProfile {
 
 | Situation | Use Constructor | Use inject() |
 |-----------|----------------|--------------|
-| Few dependencies (1-3) | ✅ Clear signature | Optional |
-| Many dependencies (4+) | ❌ Bloated constructor | ✅ Clean fields |
-| Functional APIs (guards, resolvers) | ❌ Not available | ✅ Required |
-| Need DI decorators (@Optional, @Self) | ✅ Required | ❌ Not supported |
+| Few dependencies (1-3) |  Clear signature | Optional |
+| Many dependencies (4+) |  Bloated constructor |  Clean fields |
+| Functional APIs (guards, resolvers) |  Not available |  Required |
+| Need DI decorators (@Optional, @Self) |  Required |  Not supported |
 
 ### Template Safety **[MANDATORY]**
 
 ```html
-<!-- ✅ GOOD - Safe navigation for optional properties !! -->
+<!--  GOOD - Safe navigation for optional properties !! -->
 <div>{{ user?.profile?.displayName || 'Guest' }}</div>
 
-<!-- ❌ BAD - Potential runtime errors !! -->
+<!--  BAD - Potential runtime errors !! -->
 <div>{{ user.profile.displayName }}</div>
 ```
 
@@ -204,17 +204,17 @@ export interface UserViewModel {
 ### Forms **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Type-safe access
+//  GOOD - Type-safe access
 const nameValue = this.userForm.controls['firstName'].value;
 
-// ❌ AVOID - Less refactor-friendly  
+//  AVOID - Less refactor-friendly  
 const nameValue = this.userForm.controls.firstName.value;
 ```
 
 ### Observable Naming **[TEAM_PREFERENCE]**
 
 ```typescript
-// ✅ CONSISTENT
+//  CONSISTENT
 private usersSubject = new BehaviorSubject<User[]>([]);
 public users$ = this.usersSubject.asObservable();
 
@@ -228,26 +228,26 @@ Poor accessibility excludes users and creates legal liability.
 
 #### Semantic HTML
 ```html
-<!-- ✅ SEMANTIC HTML !! -->
-<!-- ✅ GOOD - Browser provides built-in keyboard support, focus management !! -->
+<!--  SEMANTIC HTML !! -->
+<!--  GOOD - Browser provides built-in keyboard support, focus management !! -->
 <button (click)="submit()" [disabled]="!isValid">
   Submit Form
 </button>
 
-<!-- ✅ Always associate labels with form controls for screen reader context. !! -->
+<!--  Always associate labels with form controls for screen reader context. !! -->
 <label for="email">Email Address</label>
 <input id="email" type="email" aria-required="true">
 
-<!-- ✅ ARIA ATTRIBUTES !! -->
+<!--  ARIA ATTRIBUTES !! -->
 <span *ngIf="hasError" aria-live="assertive">
   {{ errorMessage }}
 </span>
 
-<!-- ✅ PROPER ALT TEXT !! -->
+<!--  PROPER ALT TEXT !! -->
 <img src="user-avatar.jpg" alt="User profile picture">
 <img src="decorative-border.png" alt="" aria-hidden="true">
 
-<!-- ❌ BAD - Requires manual keyboard handling, no semantic meaning !! -->
+<!--  BAD - Requires manual keyboard handling, no semantic meaning !! -->
 <div (click)="submit()" class="fake-button">
   Submit Form
 </div>
@@ -268,7 +268,7 @@ An illogical hierarchy breaks this navigation pattern.
 Use ARIA to provide additional context when HTML semantics aren't sufficient.
 
 ```
-<!-- ✅ ARIA-LIVE for dynamic content !! -->
+<!--  ARIA-LIVE for dynamic content !! -->
 <span *ngIf="hasError" aria-live="assertive">
   {{ errorMessage }}
 </span>
@@ -277,12 +277,12 @@ Use ARIA to provide additional context when HTML semantics aren't sufficient.
   Document saved successfully
 </span>
 
-<!-- ✅ ARIA-LABEL for context without visible text !! -->
+<!--  ARIA-LABEL for context without visible text !! -->
 <button aria-label="Close modal" (click)="closeModal()">
   <i class="icon-close"></i>
 </button>
 
-<!-- ✅ ARIA-EXPANDED for collapsible content !! -->
+<!--  ARIA-EXPANDED for collapsible content !! -->
 <button 
   [attr.aria-expanded]="isExpanded"
   (click)="toggle()"
@@ -304,7 +304,7 @@ Use ARIA to provide additional context when HTML semantics aren't sufficient.
 Ensure all interactive elements are keyboard accessible.
 
 ```
-<!-- ✅ GOOD - Custom interactive element with keyboard support !! -->
+<!--  GOOD - Custom interactive element with keyboard support !! -->
 <span
   role="button"
   tabindex="0"
@@ -315,7 +315,7 @@ Ensure all interactive elements are keyboard accessible.
   aria-label="Clear search">
 </span>
 
-<!-- ❌ BAD - Click-only interaction !! -->
+<!--  BAD - Click-only interaction !! -->
 <span (click)="clear()">
   <i class="icon-clear"></i>
 </span>
@@ -327,16 +327,16 @@ Ensure all interactive elements are keyboard accessible.
 #### Image Alt Text
 Provide context-appropriate descriptions for images.
 ```
-<!-- ✅ GOOD - Descriptive alt for meaningful images !! -->
+<!--  GOOD - Descriptive alt for meaningful images !! -->
 <img src="sales-chart-q4.png" alt="Q4 sales increased 23% from previous quarter">
 
-<!-- ✅ GOOD - Empty alt for decorative images !! -->
+<!--  GOOD - Empty alt for decorative images !! -->
 <img src="decorative-border.png" alt="" aria-hidden="true">
 
-<!-- ✅ GOOD - Context-aware descriptions !! -->
+<!--  GOOD - Context-aware descriptions !! -->
 <img src="user-avatar.jpg" alt="John Smith's profile picture">
 
-<!-- ❌ BAD - Redundant or useless alt !! -->
+<!--  BAD - Redundant or useless alt !! -->
 <img src="chart.png" alt="chart"> <!-- Doesn't describe the data !! -->
 <img src="decoration.png" alt="image"> <!-- Screen reader already says "image" !! -->
 ```
@@ -363,12 +363,12 @@ Testing Checklist:
 - [ ] Color information supplemented with icons/text
 - [ ] Minimum contrast ratios met
 
-## 🎨 SCSS/CSS Conventions
+## SCSS/CSS Conventions
 
 ### BEM with Prefixes **[TEAM_PREFERENCE]**
 
 ```scss
-// ✅ GOOD - Clear component structure
+//  GOOD - Clear component structure
 .c-user-card {
   padding: 1rem;
   
@@ -385,13 +385,13 @@ Testing Checklist:
   }
 }
 
-// ✅ GOOD - Reusable objects
+//  GOOD - Reusable objects
 .o-dropdown {
   position: relative;
   display: inline-block;
 }
 
-// ✅ GOOD - Utility classes
+//  GOOD - Utility classes
 .u-text-center { text-align: center; }
 .u-margin-small { margin: 0.5rem; }
 ```
@@ -401,12 +401,12 @@ Testing Checklist:
 - **Objects**: `.o-object-name` 
 - **Utilities**: `.u-utility-name`
 
-## 🔧 Backend Guidelines
+## Backend Guidelines
 
 ### Error Handling **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD - Named constants
+//  GOOD - Named constants
 const INPUT_VALIDATION_ERROR = 'INPUT_VALIDATION_FAILED';
 const AUTHENTICATION_ERROR = 'AUTHENTICATION_FAILED';
 const PERMISSION_DENIED_ERROR = 'INSUFFICIENT_PERMISSIONS';
@@ -414,7 +414,7 @@ const PERMISSION_DENIED_ERROR = 'INSUFFICIENT_PERMISSIONS';
 // Usage
 return BadRequest(INPUT_VALIDATION_ERROR);
 
-// ❌ BAD - Magic strings
+//  BAD - Magic strings
 return BadRequest('Invalid input provided');
 ```
 
@@ -427,18 +427,18 @@ return BadRequest('Invalid input provided');
 ### Service Return Types **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Explicit undefined handling
+//  GOOD - Explicit undefined handling
 getUserById(id: number): User | undefined {
   return this.users.find(user => user.id === id);
 }
 
-// ❌ AVOID - Unclear return type
+//  AVOID - Unclear return type
 getUserById(id: number): any {
   return this.users.find(user => user.id === id);
 }
 ```
 
-## 🌐 Universal Principles
+## Universal Principles
 
 ### SOLID Principles **[RECOMMENDED]**
 
@@ -459,7 +459,7 @@ getUserById(id: number): any {
 ### Code Organization **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Clear separation of concerns
+//  GOOD - Clear separation of concerns
 class UserService {
   // Public API first
   public getUsers(): Observable<User[]> { /* ... */ }
@@ -471,7 +471,7 @@ class UserService {
 }
 ```
 
-## 🔀 Git & Workflow
+## Git & Workflow
 
 ### Branch Naming **[MANDATORY]**
 ```bash
@@ -491,7 +491,7 @@ hotfix/PROJ-789-security-patch
 
 **Benefits**: Clear traceability between code changes and business requirements.
 
-## 🛠️ Implementation Guide
+## Implementation Guide
 
 ### For New Projects
 1. **Set up linting** rules that enforce these standards
@@ -511,7 +511,7 @@ hotfix/PROJ-789-security-patch
 3. **Update guidelines** based on real-world experience
 4. **Share knowledge** through pair programming and documentation
 
-## 🔄 Contributing & Maintenance
+## Contributing & Maintenance
 
 ### When to Update Guidelines
 - New framework versions with breaking changes
