@@ -7,7 +7,7 @@ A more in-depth Angular-focused Component architecture, services, dependency inj
 ### Component Declaration **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD
+//  GOOD
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 }
 
-// ❌ BAD
+//  BAD
 export class userProfile {
   @Input('id') userId: number;
   @Output() updated = new EventEmitter();
@@ -41,20 +41,20 @@ export class userProfile {
 ### Template Safety **[MANDATORY]**
 
 ```html
-<!-- ✅ GOOD - Safe navigation prevents runtime errors -->
+<!--  GOOD - Safe navigation prevents runtime errors -->
 <div class="user-info">
   <h2>{{ user?.profile?.displayName || 'Guest User' }}</h2>
   <p>{{ user?.email || 'No email provided' }}</p>
 </div>
 
-<!-- ✅ GOOD - Structural directive with safe checks -->
+<!--  GOOD - Structural directive with safe checks -->
 <div *ngIf="users$ | async as users">
   <div *ngFor="let user of users; trackBy: trackByUserId">
     {{ user.name }}
   </div>
 </div>
 
-<!-- ❌ BAD - Potential null reference errors -->
+<!--  BAD - Potential null reference errors -->
 <div>{{ user.profile.displayName }}</div>
 <div *ngFor="let user of users">{{ user.name }}</div>
 ```
@@ -68,7 +68,7 @@ export class userProfile {
 Angular v14+ provides the `inject()` function as an alternative to constructor injection.
 
 ```typescript
-// ✅ NEW APPROACH - Clean and functional
+//  NEW APPROACH - Clean and functional
 export class UserService {
   private http = inject(HttpClient);
   private router = inject(Router);
@@ -79,7 +79,7 @@ export class UserService {
   }
 }
 
-// ✅ TRADITIONAL APPROACH - Still valid
+//  TRADITIONAL APPROACH - Still valid
 export class UserService {
   constructor(
     private http: HttpClient,
@@ -93,11 +93,11 @@ export class UserService {
 
 | Situation | Constructor Injection | inject() Function |
 |-----------|----------------------|-------------------|
-| **Few dependencies (1-3)** | ✅ Clear signature | Optional |
-| **Many dependencies (4+)** | ❌ Bloated constructor | ✅ Clean field injection |
-| **Functional APIs** (guards, resolvers) | ❌ Not available | ✅ Required |
-| **DI decorators needed** (@Optional, @Self) | ✅ Required | ❌ Not supported |
-| **Testing** | ✅ Easy to mock in constructor | ⚠️ Requires TestBed setup |
+| **Few dependencies (1-3)** |  Clear signature | Optional |
+| **Many dependencies (4+)** |  Bloated constructor |  Clean field injection |
+| **Functional APIs** (guards, resolvers) |  Not available |  Required |
+| **DI decorators needed** (@Optional, @Self) |  Required |  Not supported |
+| **Testing** |  Easy to mock in constructor | ⚠️ Requires TestBed setup |
 
 ## Models and Data Flow
 
@@ -250,7 +250,7 @@ export class UserFormComponent implements OnInit {
     }
   }
   
-  // ✅ GOOD - Type-safe access with refactor support
+  //  GOOD - Type-safe access with refactor support
   get firstNameControl() {
     return this.userForm.controls['firstName'];
   }
@@ -386,14 +386,14 @@ export class UserComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   
   ngOnInit(): void {
-    // ✅ GOOD - Automatic cleanup
+    //  GOOD - Automatic cleanup
     this.userService.getUsers().pipe(
       takeUntil(this.destroy$)
     ).subscribe(users => {
       this.users = users;
     });
     
-    // ✅ GOOD - Multiple subscriptions with same cleanup
+    //  GOOD - Multiple subscriptions with same cleanup
     merge(
       this.route.params,
       this.userService.currentUser$,
@@ -477,7 +477,7 @@ describe('UserProfileComponent', () => {
 ### Avoid These Patterns **[MANDATORY]**
 
 ```typescript
-// ❌ BAD - Direct DOM manipulation
+//  BAD - Direct DOM manipulation
 export class BadComponent {
   ngAfterViewInit(): void {
     document.getElementById('myButton').addEventListener('click', () => {
@@ -486,7 +486,7 @@ export class BadComponent {
   }
 }
 
-// ❌ BAD - Nested subscriptions
+//  BAD - Nested subscriptions
 export class BadComponent {
   loadUserData(): void {
     this.userService.getUser(this.userId).subscribe(user => {
@@ -499,7 +499,7 @@ export class BadComponent {
   }
 }
 
-// ❌ BAD - Mutating @Input properties
+//  BAD - Mutating @Input properties
 export class BadComponent {
   @Input() user: User;
   
@@ -513,7 +513,7 @@ export class BadComponent {
 ### Preferred Alternatives
 
 ```typescript
-// ✅ GOOD - Use Angular's Renderer2 for DOM manipulation
+//  GOOD - Use Angular's Renderer2 for DOM manipulation
 export class GoodComponent {
   constructor(private renderer: Renderer2, private el: ElementRef) {}
   
@@ -525,7 +525,7 @@ export class GoodComponent {
   }
 }
 
-// ✅ GOOD - Use RxJS operators for combining observables
+//  GOOD - Use RxJS operators for combining observables
 export class GoodComponent {
   loadUserData(): void {
     const userId$ = of(this.userId);
@@ -545,7 +545,7 @@ export class GoodComponent {
   }
 }
 
-// ✅ GOOD - Emit changes instead of mutating inputs
+//  GOOD - Emit changes instead of mutating inputs
 export class GoodComponent {
   @Input() user: User;
   @Output() userChanged = new EventEmitter<Partial<User>>();
