@@ -7,13 +7,13 @@ Type-safe coding standards for maintainable, scalable TypeScript applications wi
 ### Declaration Keywords **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD - Clear intent and scope
+//  GOOD - Clear intent and scope
 const API_BASE_URL = 'https://api.example.com';
 const users = await fetchUsers();
 let currentPage = 1;
 let isLoading = false;
 
-// ❌ BAD - Outdated and problematic
+//  BAD - Outdated and problematic
 var globalCounter = 0; // Function-scoped, can be redeclared
 var users = getData();
 ```
@@ -28,19 +28,19 @@ var users = getData();
 ### Type Annotations **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Explicit when TypeScript can't infer
+//  GOOD - Explicit when TypeScript can't infer
 const userId: number = parseInt(routeParams.id);
 const userPreferences: UserPreferences = {
   theme: 'dark',
   notifications: true
 };
 
-// ✅ GOOD - Let TypeScript infer obvious types
+//  GOOD - Let TypeScript infer obvious types
 const userName = 'John Doe'; // string inferred
 const isActive = true; // boolean inferred
 const items = [1, 2, 3]; // number[] inferred
 
-// ❌ UNNECESSARY - TypeScript already knows
+//  UNNECESSARY - TypeScript already knows
 const message: string = 'Hello'; // string is obvious
 const count: number = 42; // number is obvious
 ```
@@ -52,7 +52,7 @@ const count: number = 42; // number is obvious
 ### Function Syntax **[MANDATORY]**
 
 ```typescript
-// ✅ GOOD - Arrow functions with explicit return types
+//  GOOD - Arrow functions with explicit return types
 const calculateTotal = (items: CartItem[]): number => {
   return items.reduce((sum, item) => sum + item.price, 0);
 };
@@ -64,7 +64,7 @@ const formatCurrency = (amount: number, currency = 'USD'): string => {
   }).format(amount);
 };
 
-// ❌ BAD - Function expressions without types
+//  BAD - Function expressions without types
 const calculateTotal = function(items) {
   return items.reduce((sum, item) => sum + item.price, 0);
 };
@@ -78,7 +78,7 @@ const calculateTotal = function(items) {
 ### Function Overloading **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Clear overloads for different use cases
+//  GOOD - Clear overloads for different use cases
 function findUser(id: number): Promise<User | undefined>;
 function findUser(email: string): Promise<User | undefined>;
 function findUser(criteria: Partial<User>): Promise<User[]>;
@@ -105,7 +105,7 @@ const users = await findUser({ isActive: true }); // User[]
 ### Generic Functions **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Reusable with type safety
+//  GOOD - Reusable with type safety
 function mapToViewModel<T, U>(
   items: T[], 
   mapper: (item: T) => U
@@ -123,7 +123,7 @@ function createRepository<T extends { id: number }>(
 const userViewModels = mapToViewModel(users, UserMapper.toViewModel);
 const userRepo = createRepository<User>('users');
 
-// ❌ BAD - Loses type information
+//  BAD - Loses type information
 function mapItems(items: any[], mapper: Function): any[] {
   return items.map(mapper);
 }
@@ -136,7 +136,7 @@ function mapItems(items: any[], mapper: Function): any[] {
 Use interfaces for object shapes, type aliases for complex types.
 
 ```typescript
-// ✅ GOOD - Interface for object structure
+//  GOOD - Interface for object structure
 interface User {
   readonly id: number;
   name: string;
@@ -149,13 +149,13 @@ interface User {
   lastLoginAt?: Date;
 }
 
-// ✅ GOOD - Interface extension
+//  GOOD - Interface extension
 interface AdminUser extends User {
   permissions: Permission[];
   canModifyUsers: boolean;
 }
 
-// ✅ GOOD - Type aliases for unions, functions, complex types
+//  GOOD - Type aliases for unions, functions, complex types
 type Status = 'pending' | 'approved' | 'rejected';
 type EventHandler<T> = (event: T) => void;
 type ApiResponse<T> = {
@@ -164,7 +164,7 @@ type ApiResponse<T> = {
   message?: string;
 };
 
-// ❌ AVOID - Type for simple objects (use interface)
+//  AVOID - Type for simple objects (use interface)
 type User = {
   id: number;
   name: string;
@@ -203,8 +203,8 @@ const handleEvent = (eventName: EventName, data: unknown): void => {
   // TypeScript ensures only valid event names are passed
 };
 
-handleEvent('user:created', userData); // ✅ Valid
-handleEvent('invalid:event', data); // ❌ TypeScript error
+handleEvent('user:created', userData); //  Valid
+handleEvent('invalid:event', data); //  TypeScript error
 ```
 
 ## Class Design
@@ -278,7 +278,7 @@ class BaseComponent {
 }
 
 class UserComponent extends BaseComponent {
-  // ✅ GOOD - Explicit override annotation
+  //  GOOD - Explicit override annotation
   protected override initialize(): void {
     super.initialize();
     console.log('User component initialization');
@@ -288,7 +288,7 @@ class UserComponent extends BaseComponent {
     // Render user-specific content
   }
   
-  // ❌ BAD - Missing override (still works but less clear)
+  //  BAD - Missing override (still works but less clear)
   protected initialize(): void {
     super.initialize();
     console.log('User component initialization');
@@ -443,8 +443,8 @@ const getUserOrders = (userId: UserId): Promise<Order[]> => {
 const userId = createUserId(123);
 const orderId = createOrderId(456);
 
-getUserOrders(userId); // ✅ Correct
-getUserOrders(orderId); // ❌ TypeScript error - can't pass OrderId where UserId expected
+getUserOrders(userId); //  Correct
+getUserOrders(orderId); //  TypeScript error - can't pass OrderId where UserId expected
 ```
 ## Best Practices Summary
 
@@ -462,7 +462,7 @@ getUserOrders(orderId); // ❌ TypeScript error - can't pass OrderId where UserI
 ### Performance Considerations **[RECOMMENDED]**
 
 ```typescript
-// ✅ GOOD - Lazy evaluation with computed properties
+//  GOOD - Lazy evaluation with computed properties
 class UserViewModel {
   constructor(private user: User) {}
   
@@ -476,7 +476,7 @@ class UserViewModel {
   }
 }
 
-// ✅ GOOD - Memoization for expensive calculations
+//  GOOD - Memoization for expensive calculations
 const memoizedCalculateRisk = (() => {
   const cache = new Map<string, number>();
   
@@ -493,7 +493,7 @@ const memoizedCalculateRisk = (() => {
   };
 })();
 
-// ❌ AVOID - Computing values in constructor
+//  AVOID - Computing values in constructor
 class BadUserViewModel {
   public fullName: string;
   public displayStatus: string;
@@ -636,8 +636,8 @@ emitter.on('user:created', (payload) => {
   console.log('New user created:', payload.user.name);
 });
 
-emitter.emit('user:created', { user: newUser }); // ✅ Correct payload type
-emitter.emit('user:created', { userId: 123 }); // ❌ TypeScript error - wrong payload
+emitter.emit('user:created', { user: newUser }); //  Correct payload type
+emitter.emit('user:created', { userId: 123 }); //  TypeScript error - wrong payload
 ```
 
 ### Discriminated Unions **[ADVANCED]**
@@ -716,22 +716,22 @@ const UserListComponent = () => {
 ### Avoid These TypeScript Mistakes **[MANDATORY]**
 
 ```typescript
-// ❌ BAD - Any defeats the purpose of TypeScript
+//  BAD - Any defeats the purpose of TypeScript
 const processData = (data: any): any => {
   return data.someProperty.doSomething();
 };
 
-// ✅ GOOD - Use generics or specific types
+//  GOOD - Use generics or specific types
 const processData = <T extends { someProperty: { doSomething(): unknown } }>(
   data: T
 ): unknown => {
   return data.someProperty.doSomething();
 };
 
-// ❌ BAD - Type assertion without validation
+//  BAD - Type assertion without validation
 const userFromApi = response as User;
 
-// ✅ GOOD - Type guard with validation
+//  GOOD - Type guard with validation
 const userFromApi = (() => {
   if (isUser(response)) {
     return response;
@@ -739,27 +739,27 @@ const userFromApi = (() => {
   throw new Error('Invalid user data from API');
 })();
 
-// ❌ BAD - Ignoring null/undefined possibilities
+//  BAD - Ignoring null/undefined possibilities
 const getUserName = (user: User | null): string => {
   return user.name; // Runtime error if user is null
 };
 
-// ✅ GOOD - Explicit null handling
+//  GOOD - Explicit null handling
 const getUserName = (user: User | null): string => {
   return user?.name ?? 'Unknown User';
 };
 
-// ❌ BAD - Using function declarations in modules
+//  BAD - Using function declarations in modules
 function helper() {
   // Function declarations are hoisted and harder to tree-shake
 }
 
-// ✅ GOOD - Use const with arrow functions
+//  GOOD - Use const with arrow functions
 const helper = (): void => {
   // More predictable, better for bundling
 };
 
-// ❌ BAD - Mutating readonly properties
+//  BAD - Mutating readonly properties
 interface ReadonlyUser {
   readonly id: number;
   readonly name: string;
@@ -769,7 +769,7 @@ const updateUser = (user: ReadonlyUser): void => {
   (user as any).name = 'New Name'; // Circumvents type safety
 };
 
-// ✅ GOOD - Create new objects for updates
+//  GOOD - Create new objects for updates
 const updateUser = (user: ReadonlyUser, newName: string): ReadonlyUser => {
   return { ...user, name: newName };
 };
