@@ -1,6 +1,6 @@
 # Accessibility Guidelines
 
-Comprehensive accessibility standards for inclusive web applications. Accessibility isn't compliance—it's about creating experiences that work for everyone.
+Comprehensive accessibility standards for inclusive web applications. Accessibility isn't compliance; it's about creating experiences that work for everyone.
 
 ## Why Accessibility Matters
 
@@ -19,7 +19,7 @@ Comprehensive accessibility standards for inclusive web applications. Accessibil
 HTML elements have built-in accessibility features. Don't recreate them with generic elements.
 
 ```html
-<!-- ✅ GOOD - Browser provides built-in keyboard support -->
+<!--  GOOD - Browser provides built-in keyboard support -->
 <button (click)="submit()" [disabled]="!isValid">
   Submit Form
 </button>
@@ -45,7 +45,7 @@ HTML elements have built-in accessibility features. Don't recreate them with gen
   </section>
 </main>
 
-<!-- ❌ BAD - Requires manual accessibility implementation -->
+<!--  BAD - Requires manual accessibility implementation -->
 <div class="fake-button" (click)="submit()">
   Submit Form
 </div>
@@ -66,7 +66,7 @@ HTML elements have built-in accessibility features. Don't recreate them with gen
 Maintain logical heading order for navigation landmarks.
 
 ```html
-<!-- ✅ GOOD - Logical progression -->
+<!--  GOOD - Logical progression -->
 <h1>E-commerce Dashboard</h1>
   <h2>Sales Overview</h2>
     <h3>This Month's Revenue</h3>
@@ -76,7 +76,7 @@ Maintain logical heading order for navigation landmarks.
     <h3>Completed Orders</h3>
   <h2>User Management</h2>
 
-<!-- ❌ BAD - Breaks navigation -->
+<!--  BAD - Breaks navigation -->
 <h1>Dashboard</h1>
 <h3>Sales</h3> <!-- Skipped h2 -->
 <h1>Orders</h1> <!-- Multiple h1s confuse hierarchy -->
@@ -94,7 +94,7 @@ Maintain logical heading order for navigation landmarks.
 Every form control must have an accessible name.
 
 ```html
-<!-- ✅ GOOD - Explicit association -->
+<!--  GOOD - Explicit association -->
 <div class="form-field">
   <label for="email-input">Email Address</label>
   <input 
@@ -118,13 +118,13 @@ Every form control must have an accessible name.
   </div>
 </div>
 
-<!-- ✅ GOOD - Implicit association for simple cases -->
+<!--  GOOD - Implicit association for simple cases -->
 <label class="checkbox-label">
   <input type="checkbox" [(ngModel)]="acceptTerms" aria-required="true">
   I accept the terms and conditions
 </label>
 
-<!-- ✅ GOOD - Fieldset for grouped inputs -->
+<!--  GOOD - Fieldset for grouped inputs -->
 <fieldset>
   <legend>Preferred Contact Method</legend>
   <label>
@@ -141,13 +141,13 @@ Every form control must have an accessible name.
   </label>
 </fieldset>
 
-<!-- ❌ BAD - No accessible name -->
+<!--  BAD - No accessible name -->
 <div class="form-row">
   <div class="label-text">Email</div>
   <input type="email"> <!-- Screen reader can't connect label -->
 </div>
 
-<!-- ❌ BAD - Placeholder as label -->
+<!--  BAD - Placeholder as label -->
 <input type="email" placeholder="Enter your email"> <!-- Disappears when typing -->
 ```
 
@@ -559,7 +559,7 @@ a:focus,
 
 // Never remove focus indicators without replacement
 *:focus {
-  outline: none; /* ❌ NEVER DO THIS */
+  outline: none; /*  NEVER DO THIS */
 }
 ```
 
@@ -570,7 +570,7 @@ a:focus,
 Provide context-appropriate descriptions for images.
 
 ```html
-<!-- ✅ INFORMATIVE IMAGES - Describe the content/meaning -->
+<!--  INFORMATIVE IMAGES - Describe the content/meaning -->
 <img 
   src="sales-chart-q4.png" 
   alt="Q4 sales increased 23% compared to Q3, reaching $2.4 million">
@@ -579,7 +579,7 @@ Provide context-appropriate descriptions for images.
   src="user-avatar.jpg" 
   alt="Profile picture of Sarah Johnson, Software Engineer">
 
-<!-- ✅ FUNCTIONAL IMAGES - Describe the action -->
+<!--  FUNCTIONAL IMAGES - Describe the action -->
 <button>
   <img src="edit-icon.svg" alt="Edit user profile">
 </button>
@@ -588,13 +588,13 @@ Provide context-appropriate descriptions for images.
   <img src="pdf-icon.svg" alt="Download quarterly report (PDF)">
 </a>
 
-<!-- ✅ DECORATIVE IMAGES - Empty alt, hidden from screen readers -->
+<!--  DECORATIVE IMAGES - Empty alt, hidden from screen readers -->
 <img 
   src="decorative-border.png" 
   alt="" 
   aria-hidden="true">
 
-<!-- ✅ COMPLEX IMAGES - Use longdesc or accessible data table -->
+<!--  COMPLEX IMAGES - Use longdesc or accessible data table -->
 <img 
   src="complex-chart.png" 
   alt="Revenue by department for 2024"
@@ -606,7 +606,7 @@ Provide context-appropriate descriptions for images.
   Operations $400K (13%).
 </div>
 
-<!-- ❌ BAD - Useless or redundant alt text -->
+<!--  BAD - Useless or redundant alt text -->
 <img src="chart.png" alt="chart"> <!-- Doesn't describe the data -->
 <img src="photo.jpg" alt="image"> <!-- Screen reader already says "image" -->
 <img src="btn-submit.png" alt="submit button image"> <!-- Redundant -->
@@ -660,7 +660,7 @@ Provide context-appropriate descriptions for images.
 Ensure sufficient color contrast for readability.
 
 ```scss
-// ✅ GOOD - Meets WCAG AA standards
+//  GOOD - Meets WCAG AA standards
 .primary-text {
   color: #212529; // Dark gray
   background: #ffffff; // White
@@ -686,7 +686,7 @@ Ensure sufficient color contrast for readability.
   // Contrast ratio: 5.52:1
 }
 
-// ❌ BAD - Insufficient contrast
+//  BAD - Insufficient contrast
 .poor-contrast {
   color: #cccccc; // Light gray
   background: #ffffff; // White
@@ -699,7 +699,7 @@ Ensure sufficient color contrast for readability.
 Supplement color with icons, patterns, or text to convey information.
 
 ```html
-<!-- ✅ GOOD - Multiple visual cues -->
+<!--  GOOD - Multiple visual cues -->
 <div class="form-field" [class.error]="hasError" [class.success]="isValid">
   <label for="email">Email Address</label>
   <input 
@@ -716,7 +716,7 @@ Supplement color with icons, patterns, or text to convey information.
   
   <!-- Icon + color + text for success state -->
   <div *ngIf="isValid" class="validation-message success">
-    <span class="icon" aria-hidden="true">✅</span>
+    <span class="icon" aria-hidden="true"></span>
     <span>Email address is valid</span>
   </div>
 </div>
@@ -740,7 +740,7 @@ Supplement color with icons, patterns, or text to convey information.
   </div>
 </div>
 
-<!-- ❌ BAD - Color-only indicators -->
+<!--  BAD - Color-only indicators -->
 <div class="status-item" style="color: green;">John Doe</div>
 <div class="status-item" style="color: red;">Jane Smith</div>
 ```
@@ -918,47 +918,47 @@ const testScenarios: AccessibilityTestScenario[] = [
 ### Avoid These Mistakes **[MANDATORY]**
 
 ```html
-<!-- ❌ BAD - Removes focus indicators -->
+<!--  BAD - Removes focus indicators -->
 <style>
 *:focus { outline: none; }
 </style>
 
-<!-- ❌ BAD - Inaccessible custom components -->
+<!--  BAD - Inaccessible custom components -->
 <div class="fake-button" (click)="submit()">Submit</div>
 <div class="fake-select" (click)="showOptions()">Choose option</div>
 
-<!-- ❌ BAD - Auto-playing media -->
+<!--  BAD - Auto-playing media -->
 <video autoplay loop>
   <source src="background-video.mp4">
 </video>
 
-<!-- ❌ BAD - Time-limited content without controls -->
+<!--  BAD - Time-limited content without controls -->
 <div class="notification" *ngIf="showNotification">
   <!-- Disappears after 3 seconds with no way to extend -->
   Important message that users might miss
 </div>
 
-<!-- ❌ BAD - Placeholder as label -->
+<!--  BAD - Placeholder as label -->
 <input type="email" placeholder="Enter email address">
 <!-- Placeholder disappears when typing, no persistent label -->
 
-<!-- ❌ BAD - Non-descriptive link text -->
+<!--  BAD - Non-descriptive link text -->
 <a href="/user/123">Click here</a>
 <a href="/report.pdf">Read more</a>
 
-<!-- ❌ BAD - Empty headings or skipped levels -->
+<!--  BAD - Empty headings or skipped levels -->
 <h1>Dashboard</h1>
 <h3>User Stats</h3> <!-- Skipped h2 -->
 <h2></h2> <!-- Empty heading -->
 
-<!-- ❌ BAD - Redundant alt text -->
+<!--  BAD - Redundant alt text -->
 <img src="user-photo.jpg" alt="Photo of user John Doe's photo">
 <button>
   <img src="save-icon.png" alt="Save icon"> Save
   <!-- Alt text is redundant with button text -->
 </button>
 
-<!-- ❌ BAD - Form without labels -->
+<!--  BAD - Form without labels -->
 <form>
   <input type="text" name="firstName">
   <input type="email" name="email">
@@ -969,7 +969,7 @@ const testScenarios: AccessibilityTestScenario[] = [
 ### Correct Implementations **[RECOMMENDED]**
 
 ```html
-<!-- ✅ GOOD - Accessible alternatives -->
+<!--  GOOD - Accessible alternatives -->
 <style>
 button:focus,
 input:focus,
@@ -979,20 +979,20 @@ a:focus {
 }
 </style>
 
-<!-- ✅ GOOD - Proper semantic components -->
+<!--  GOOD - Proper semantic components -->
 <button type="submit" (click)="submit()">Submit</button>
 <select aria-label="Choose option" (change)="onOptionChange($event)">
   <option value="">Select an option</option>
   <option value="1">Option 1</option>
 </select>
 
-<!-- ✅ GOOD - User-controlled media -->
+<!--  GOOD - User-controlled media -->
 <video controls preload="metadata" aria-label="Product demonstration video">
   <source src="demo-video.mp4">
   <track kind="captions" src="captions.vtt" default>
 </video>
 
-<!-- ✅ GOOD - Persistent notifications with controls -->
+<!--  GOOD - Persistent notifications with controls -->
 <div 
   class="notification" 
   *ngIf="showNotification"
@@ -1004,7 +1004,7 @@ a:focus {
   </button>
 </div>
 
-<!-- ✅ GOOD - Proper labels with helpful placeholders -->
+<!--  GOOD - Proper labels with helpful placeholders -->
 <label for="email">Email Address</label>
 <input 
   id="email" 
@@ -1013,24 +1013,24 @@ a:focus {
   aria-describedby="email-help">
 <div id="email-help">We'll use this for account recovery</div>
 
-<!-- ✅ GOOD - Descriptive link text -->
+<!--  GOOD - Descriptive link text -->
 <a href="/user/123">View John Doe's profile</a>
 <a href="/report.pdf">Download Q4 financial report (PDF, 2.3MB)</a>
 
-<!-- ✅ GOOD - Logical heading structure -->
+<!--  GOOD - Logical heading structure -->
 <h1>User Management Dashboard</h1>
 <h2>User Statistics</h2>
 <h3>Active Users This Month</h3>
 <h3>New Registrations</h3>
 <h2>Recent Activity</h2>
 
-<!-- ✅ GOOD - Meaningful alt text -->
+<!--  GOOD - Meaningful alt text -->
 <img src="user-photo.jpg" alt="John Doe, Senior Developer">
 <button>
   <img src="save-icon.png" alt="" aria-hidden="true"> Save Changes
 </button>
 
-<!-- ✅ GOOD - Accessible form with proper labels -->
+<!--  GOOD - Accessible form with proper labels -->
 <form>
   <div>
     <label for="firstName">First Name</label>
@@ -1151,4 +1151,4 @@ Build accessibility in from the start, don't retrofit it.
 </table>
 ```
 
-This comprehensive accessibility guide ensures your Angular applications work for everyone, not just users without disabilities. Remember: accessibility is not a feature to add later—it's a foundational aspect of good web development.
+This comprehensive accessibility guide ensures your Angular applications work for everyone, not just users without disabilities. Remember: accessibility is not a feature to add later; it's a foundational aspect of good web development.
